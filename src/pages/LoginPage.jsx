@@ -12,11 +12,22 @@ export default function LoginPage() {
     setError('')
 
     if (!username.trim() || !password.trim()) {
-      setError('Please enter both username and password')
+      setError('Please enter both email and password')
       return
     }
 
-    // Store auth state and navigate
+    // Validate credentials
+    const validEmail = 'shubham.kunwar@igl.co.in'
+    const validPassword = 'password'
+
+    if (username.trim() !== validEmail || password.trim() !== validPassword) {
+      setError('Invalid email or password. Please try again.')
+      setUsername('')
+      setPassword('')
+      return
+    }
+
+    // Valid credentials - store auth state and navigate
     localStorage.setItem('isLoggedIn', 'true')
     localStorage.setItem('username', username)
     navigate('/')
@@ -37,16 +48,16 @@ export default function LoginPage() {
         {/* Form Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
           <form onSubmit={handleSubmit}>
-            {/* Username Field */}
+            {/* Email Field */}
             <div className="mb-6">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Username
+                Email
               </label>
               <input
-                type="text"
+                type="email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                placeholder="Enter your email"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-igl-green focus:border-transparent transition"
               />
             </div>
